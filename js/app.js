@@ -12,15 +12,17 @@ const showProducts = (products) => {
     const image = product.images;
     const div = document.createElement("div");
     div.classList.add("product");
-    div.innerHTML = `<div class="single-product" style="margin-top: 20px">
+    div.innerHTML = `<div class="single-product" style="margin-top: 30px">
       
     <img class="product-image" src="${product.image}"></img>
     
       <h3>${product.title}</h3>
-      <p>Category: ${product.category}</p>
+      <h4>Category: ${product.category}</h4>
       <h2>Price: $ ${product.price}</h2>
-      <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
-      <button id="details-btn" class="btn btn-danger">Details</button></div>
+      <p>rating ${product.rating.rate}, given by ${product.rating.count} people</p>
+
+      <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="add-now btn ">Add to cart</button>
+      <button id="details-btn" class="detail-button btn" >Details</button></div>
       `;
     document.getElementById("all-products").appendChild(div);
   }
@@ -31,9 +33,13 @@ const addToCart = (id, price) => {
   updatePrice("price", price);
 
   updateTaxAndCharge();
+  
   updateTotal();
   document.getElementById("total-Products").innerText = count;
 };
+
+
+
 
 const getInputValue = (id) => {
   const element = document.getElementById(id).innerText;
@@ -76,8 +82,6 @@ const updateTotal = () => {
 let grandTotal = getInputValue("price")+getInputValue("delivery-charge")+getInputValue("total-tax")
    
   document.getElementById('total').innerText=grandTotal.toFixed(2);
-
-  
 
 };
 loadProducts();
